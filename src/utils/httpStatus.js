@@ -1,0 +1,19 @@
+const OK_STATUS = 200;
+const CREATED_STATUS = 201;
+const BAD_REQUEST = 400;
+const CONFLICT = 409;
+const UNAUTHORIZED = 401;
+const NOT_FOUND = 404;
+const NO_CONTENT = 204;
+const FORBIDDEN = 403;
+
+module.exports = {
+  CREATED_STATUS,
+  BAD_REQUEST,
+  CONFLICT,
+  UNAUTHORIZED,
+  OK_STATUS,
+  NOT_FOUND,
+  NO_CONTENT,
+  FORBIDDEN,
+};
