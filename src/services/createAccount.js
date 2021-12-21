@@ -1,6 +1,8 @@
 const createAccountModel = require('../models/createAccount');
+const { createToken } = require('../utils/tokenGenerate');
 
 module.exports = async (object) => {
-  const id = await createAccountModel(object);
-  return id;
+  const token = await createAccountModel(object);
+
+  return createToken({ token });
 };

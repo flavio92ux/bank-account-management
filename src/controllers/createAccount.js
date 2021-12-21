@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 
   const object = { cpf, firstName, middleName, lastName };
 
-  const id = await createAccountService(object);
+  const token = await createAccountService(object);
 
-  res.status(200).send(id);
+  res.status(200).json({ token });
 };
