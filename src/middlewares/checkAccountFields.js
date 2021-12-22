@@ -18,10 +18,12 @@ const checkCpf = (cpf, next) => {
 
 module.exports = (req, _res, next) => {
   const result = schema.validate(req.body);
-  const { cpf } = req.body;
-  checkCpf(cpf, next);
-
-  if (result.error) next(invalidFields);
-
+  if (result.error) {
+    next(invalidFields);
+  } else {
+    const { cpf } = req.body;
+    checkCpf(cpf, next);
+  }
+  
   next();
 };

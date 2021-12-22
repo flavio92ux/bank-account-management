@@ -5,8 +5,8 @@ const cpfTest = require('../utils/cpfTest');
 const regexCpf = /^\d{11}$/;
 
 const schema = Joi.object({
-  cpfTo: Joi.alternatives(Joi.string().regex(regexCpf), Joi.number()).required(),
-  quantityToTransfer: Joi.number().min(1).max(2000).required(),
+  cpf: Joi.alternatives(Joi.string().regex(regexCpf), Joi.number()).required(),
+  amount: Joi.number().min(1).required(),
 });
 
 const checkCpf = (cpf, next) => {
@@ -18,8 +18,8 @@ module.exports = (req, _res, next) => {
   if (result.error) {
     next(invalidFields);
   } else {
-    const { cpfTo } = req.body;
-    checkCpf(cpfTo, next);
+    const { cpf } = req.body;
+    checkCpf(cpf, next);
   }
 
   next();

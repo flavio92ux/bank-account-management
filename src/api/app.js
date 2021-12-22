@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const controller = require('../controllers');
 const checkAccountFields = require('../middlewares/checkAccountFields');
 const checkBalanceFields = require('../middlewares/checkBalanceFields');
+const checkDepositFields = require('../middlewares/checkDepositFields');
 const auth = require('../middlewares/auth');
 
 require('dotenv').config();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 app.post('/createAccount', checkAccountFields, rescue(controller.createAccount));
 app.patch('/transfer', auth, checkBalanceFields, rescue(controller.transfer));
+app.patch('/deposit', checkDepositFields, rescue(controller.deposit));
 
 app.use((error, _req, res, _next) => {
   res.status(error.status).json({ message: error.message });

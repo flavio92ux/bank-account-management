@@ -8,6 +8,11 @@ const invalidCpf = {
   message: 'Cpf Inválido',
 };
 
+const accountDoesNotExist = {
+  status: 404,
+  message: 'Account does not exist',
+};
+
 const cpfAlreadyExist = {
   status: 409,
   message: 'CPF already exist',
@@ -41,4 +46,5 @@ module.exports = {
   missingAuthToken,
   insufficientFunds,
   sameAccount,
+  accountDoesNotExist,
 };

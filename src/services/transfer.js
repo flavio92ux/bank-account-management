@@ -1,5 +1,5 @@
 const { ObjectId } = require('bson');
-const transferModel = require('../models/transfer');
+const transferModel = require('../models/depositAndTransfer');
 const { insufficientFunds, sameAccount } = require('../utils/errMessages');
 const getByCpf = require('../models/getAccountByCPF');
 
