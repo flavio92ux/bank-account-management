@@ -6,7 +6,7 @@ const regexCpf = /^\d{11}$/;
 
 const schema = Joi.object({
   cpf: Joi.alternatives(Joi.string().regex(regexCpf), Joi.number()).required(),
-  amount: Joi.number().min(1).required(),
+  amount: Joi.number().min(1).max(2000).required(),
 });
 
 const checkCpf = (cpf, next) => {

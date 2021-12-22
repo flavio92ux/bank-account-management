@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('GET /getall', function () {
-  describe('Verifira se retorna um array de objetos com as propriedades corretas', function () {
+  describe('Verifica se retorna um array de objetos com as propriedades corretas', function () {
     let connectionMock;
     let response;
 
@@ -43,7 +43,7 @@ describe('GET /getall', function () {
     });
 
     it('O objeto contido no array contem _id, cpf, firstName, middleName, lastName, amount, token', function () {
-      expect(response.body[0]).to.have.all.keys('_id', 'cpf', 'firstName', 'middleName', 'lastName', 'amount', 'token');
+      expect(response.body[0]).to.have.all.keys('_id', 'cpf', 'firstName', 'middleName', 'lastName', 'token');
     });
   });
 });
