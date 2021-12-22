@@ -1,4 +1,4 @@
-const depositService = require('../services/deposit');
+const depositService = require('../services/transfer');
 
 module.exports = async (req, res) => {
   const { _id: myId, amount: mybalance } = req.account;

@@ -1,7 +1,7 @@
 const createAccount = require('./createAccount');
-const deposit = require('./deposit');
+const transfer = require('./transfer');
 
 module.exports = {
   createAccount,
-  deposit,
+  transfer,
 };

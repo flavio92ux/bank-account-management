@@ -1,4 +1,5 @@
-const depositModel = require('../models/deposit');
+const { ObjectId } = require('bson');
+const transferModel = require('../models/transfer');
 const { insufficientFunds, sameAccount } = require('../utils/errMessages');
 const getByCpf = require('../models/getAccountByCPF');
 
@@ -15,6 +16,6 @@ module.exports = async (myId, mybalance, cpfTo, quantityToTransfer) => {
   const myAccountNewBalance = mybalance - quantityToTransfer;
   const recipientNewBalance = balanceRecipient + quantityToTransfer;
   
-  await depositModel(myId, myAccountNewBalance);
-  await depositModel(idRecipient, recipientNewBalance);
+  await transferModel(ObjectId(myId), myAccountNewBalance);
+  await transferModel(ObjectId(idRecipient), recipientNewBalance);
 };
