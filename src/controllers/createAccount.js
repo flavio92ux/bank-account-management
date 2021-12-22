@@ -7,5 +7,5 @@ module.exports = async (req, res) => {
 
   const token = await createAccountService(object);
 
-  res.status(200).json({ token });
+  res.status(201).json({ token });
 };
