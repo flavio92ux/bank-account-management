@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
-const MONGODB_URL = 'mongodb://mongodb:27017/Cookmaster';
-const DB_NAME = 'Cookmaster';
+const MONGODB_URL = 'mongodb://localhost:27017';
+const DB_NAME = 'BankAccount';
 
 const getConnection = () => MongoClient
   .connect(MONGODB_URL, {

@@ -1,24 +1,21 @@
-const jwt = require('jsonwebtoken');
-const models = require('../models');
-
-const errorMessages = require('../utils/errorMessages');
-
-const JWT_SECRET = '123';
+const { checkToken } = require('../utils/tokenGenerate');
+const { missingAuthToken, jwtMalformed } = require('../utils/errMessages');
+const getById = require('../models/getAccountById');
 
 module.exports = async (req, _res, next) => {
-const token = req.headers.authorization;
+  const token = req.headers.authorization;
 
-if (!token) next(errorMessages.MISSING_AUTH_TOKEN);
+  if (!token) next(missingAuthToken);
 
   try {
-    const payload = jwt.verify(token, JWT_SECRET);
-    const user = await models.getByEmail(payload.email);
+    const { id } = checkToken(token);
+    const account = await getById(id);
 
-    if (!user) next(errorMessages.JWT_MALFORMED);
+    if (!account) next(jwtMalformed);
 
-    req.user = payload;
+    req.account = account;
     next();
-  } catch (e) {
-    next(errorMessages.JWT_MALFORMED);
+  } catch (_e) {
+    next(jwtMalformed);
   }
 };

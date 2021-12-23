@@ -1,26 +1,26 @@
 const express = require('express');
+const rescue = require('express-rescue');
 const bodyParser = require('body-parser');
-const path = require('path');
-const usersRouter = require('../routers/usersRouters');
-const loginRouter = require('../routers/loginRouter');
-const recipesRouter = require('../routers/recipesRouter');
+const controller = require('../controllers');
+const checkAccountFields = require('../middlewares/checkAccountFields');
+const checkBalanceFields = require('../middlewares/checkBalanceFields');
+const checkDepositFields = require('../middlewares/checkDepositFields');
+const auth = require('../middlewares/auth');
+
+require('dotenv').config();
 
 const app = express();
+
 app.use(bodyParser.json());
 
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/recipes', recipesRouter);
-app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
+app.get('/', controller.getAllAccounts);
+app.get('/:cpf', rescue(controller.getDataByCpf));
+app.post('/createAccount', checkAccountFields, rescue(controller.createAccount));
+app.patch('/transfer', auth, checkBalanceFields, rescue(controller.transfer));
+app.patch('/deposit', checkDepositFields, rescue(controller.deposit));
 
 app.use((error, _req, res, _next) => {
-  res.status(error.status).json(error.err);
+  res.status(error.status).json({ message: error.message });
 });
-
-// Não remover esse end-point, ele é necessário para o avaliador
-app.get('/', (_request, response) => {
-  response.send();
-});
-// Não remover esse end-point, ele é necessário para o avaliador
 
 module.exports = app;
