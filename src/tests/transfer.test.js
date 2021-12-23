@@ -12,6 +12,11 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const CPF_BILL = 36212043000;
+const CPF_MARK = 35548165070;
+const INVALID_CPF = 35548165071;
+const CPF_WITHOUT_REGISTRATION = 84449834038;
+
 describe('PATCH /transfer', function () {
   let connectionMock;
   let responseBill;
@@ -23,25 +28,25 @@ describe('PATCH /transfer', function () {
     
     responseBill = await chai.request(app)
       .post('/createAccount')
-      .send({ cpf: 36212043000, firstName: 'Bill', lastName: 'Gates' });
+      .send({ cpf: CPF_BILL, firstName: 'Bill', lastName: 'Gates' });
 
     await chai.request(app)
       .patch('/deposit')
-      .send({ cpf: 36212043000, amount: 1800 });
+      .send({ cpf: CPF_BILL, amount: 1800 });
 
     await chai.request(app)
       .post('/createAccount')
-      .send({ cpf: 35548165070, firstName: 'Mark', lastName: 'Zuckeberg' });
+      .send({ cpf: CPF_MARK, firstName: 'Mark', lastName: 'Zuckeberg' });
   });
 
   after(async function () {
     MongoClient.connect.restore();
 
     await connectionMock.db('BankAccount').collection('accounts')
-      .deleteOne({ cpf: 36212043000 });
+      .deleteOne({ cpf: CPF_BILL });
 
     await connectionMock.db('BankAccount').collection('accounts')
-      .deleteOne({ cpf: 35548165070 });
+      .deleteOne({ cpf: CPF_MARK });
   });
 
   describe('Verifica se é possivel fazer uma transferencia com sucesso', function () {
@@ -50,19 +55,19 @@ describe('PATCH /transfer', function () {
       await chai.request(app)
         .patch('/transfer')
         .set({ Authorization: token })
-        .send({ cpfTo: 35548165070, quantityToTransfer: 300 });
+        .send({ cpfTo: CPF_MARK, quantityToTransfer: 300 });
     });
 
     it('Verifica se foi decrementado R$300 na conta de Bill', async function () {
       const { body: { amount } } = await chai.request(app)
-        .get('/36212043000');
+        .get(`/${CPF_BILL}`);
 
       expect(amount).to.be.equal(1500);
     });
 
     it('Verifica se foi aumentado em R$300 na conta de Mark', async function () {
       const { body: { amount } } = await chai.request(app)
-        .get('/35548165070');
+        .get(`/${CPF_MARK}`);
 
       expect(amount).to.be.equal(300);
     });
@@ -75,7 +80,7 @@ describe('PATCH /transfer', function () {
       response = await chai.request(app)
         .patch('/transfer')
         .set({ Authorization: token })
-        .send({ cpfTo: 35548165070, quantityToTransfer: 2000 });
+        .send({ cpfTo: CPF_MARK, quantityToTransfer: 2000 });
     });
 
     it('Verifica se foi recebido um status 400', async function () {
@@ -103,7 +108,7 @@ describe('PATCH /transfer', function () {
         response = await chai.request(app)
           .patch('/transfer')
           .set({ Authorization: token })
-          .send({ cpfTo: 35548165071, quantityToTransfer: 2000 });
+          .send({ cpfTo: INVALID_CPF, quantityToTransfer: 2000 });
       });
   
       it('Verifica se foi recebido um status 400', async function () {
@@ -129,7 +134,7 @@ describe('PATCH /transfer', function () {
         response = await chai.request(app)
           .patch('/transfer')
           .set({ Authorization: token })
-          .send({ cpfTo: 84449834038, quantityToTransfer: 200 });
+          .send({ cpfTo: CPF_WITHOUT_REGISTRATION, quantityToTransfer: 200 });
       });
   
       it('Verifica se foi recebido um status 404', async function () {
@@ -155,7 +160,7 @@ describe('PATCH /transfer', function () {
         response = await chai.request(app)
           .patch('/transfer')
           .set({ Authorization: token })
-          .send({ cpfTo: 36212043000, quantityToTransfer: 200 });
+          .send({ cpfTo: CPF_BILL, quantityToTransfer: 200 });
       });
   
       it('Verifica se foi recebido um status 409', async function () {
@@ -181,7 +186,7 @@ describe('PATCH /transfer', function () {
           response = await chai.request(app)
             .patch('/transfer')
             .set({ Authorization: 'xxx' })
-            .send({ cpfTo: 36212043000, quantityToTransfer: 200 });
+            .send({ cpfTo: CPF_MARK, quantityToTransfer: 200 });
         });
     
         it('Verifica se foi recebido um status 400', async function () {
@@ -205,7 +210,7 @@ describe('PATCH /transfer', function () {
         before(async function () {
           response = await chai.request(app)
             .patch('/transfer')
-            .send({ cpfTo: 36212043000, quantityToTransfer: 200 });
+            .send({ cpfTo: CPF_MARK, quantityToTransfer: 200 });
         });
     
         it('Verifica se foi recebido um status 401', async function () {

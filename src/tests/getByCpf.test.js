@@ -11,6 +11,9 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const CPF_WILLIAM = 14645594818;
+const UNKNOWN_CPF = 14645594812;
+
 describe('GET /getByCpf', function () {
   describe('Para o caso de encontrar um objeto com sucesso', function () {
     let connectionMock;
@@ -22,21 +25,19 @@ describe('GET /getByCpf', function () {
         .resolves(connectionMock);
 
       await connectionMock.db('BankAccount').collection('accounts')
-        .insertOne({ cpf: 14645594818, firstName: 'William', middleName: 'H.', lastName: 'Gates' });
+        .insertOne({ cpf: CPF_WILLIAM, firstName: 'William', middleName: 'H.', lastName: 'Gates' });
     });
 
     after(async function () {
       MongoClient.connect.restore();
       await connectionMock.db('BankAccount').collection('accounts')
-        .deleteOne({ cpf: 14645594818 });
+        .deleteOne({ cpf: CPF_WILLIAM });
     });
 
     describe('Para o caso de encontrar um objeto com sucesso', function () {
       before(async function () {
         response = await chai.request(app)
-        .get('/14645594818');
-
-        console.log(response.body);
+        .get(`/${CPF_WILLIAM}`);
       });
 
       it('retorna o código de status 200', function () {
@@ -55,9 +56,7 @@ describe('GET /getByCpf', function () {
     describe('Se não encontrar um objeto', function () {
       before(async function () {
         response = await chai.request(app)
-        .get('/14645594812');
-
-        console.log(response.body);
+        .get(`/${UNKNOWN_CPF}`);
       });
 
       it('retorna o código de status 404', function () {
