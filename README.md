@@ -14,7 +14,6 @@ Projeto de **backend** criado com um **API REST** com algumas **funções essenc
 
 - bash(Unix);
 - nodeJs versão 13 ou superior;
-- Não aceitamos valores negativos nas contas;
 - mongodb;
 
 #INSTRUÇÕES
