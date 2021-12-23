@@ -11,5 +11,5 @@ REQUISITOS
 INSTRUÇÕES
 
 - Clone o repositório e na raiz do mesmo execute o comando **npm install && npm start**;
-- Rotas GET, POST E PATCH estão encontradas no arquivo src/app.js;
+- Rotas GET, POST E PATCH estão encontradas no arquivo src/api/app.js;
 
