@@ -2,7 +2,7 @@
 
 
 
-Projeto de **backend** criado com um **API REST** com algumas **funções essenciais relacionadas** ao **gerenciamento de contas bancárias** em **uma** das linguagem: **Node.js**
+Projeto de **backend** criado com um **API REST** com algumas **funções essenciais relacionadas** ao **gerenciamento de contas bancárias** em linguagem **Node.js**
 
 #REQUISITOS
 
