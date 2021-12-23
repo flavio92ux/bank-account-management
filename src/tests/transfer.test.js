@@ -66,4 +66,31 @@ describe('PATCH /transfer', function () {
       expect(amount).to.be.equal(300);
     });
   });
+
+  describe('Verifica que não é possivel transferir uma quantidade maior que o saldo disponivel', function () {
+    let response;
+    before(async function () {
+      const { body: { token } } = responseBill;
+      response = await chai.request(app)
+        .patch('/transfer')
+        .set({ Authorization: token })
+        .send({ cpfTo: 35548165070, quantityToTransfer: 2000 });
+    });
+
+    it('Verifica se foi recebido um status 400', async function () {
+      expect(response).to.have.status(400);
+    });
+
+    it('retorna um objeto', function () {
+      expect(response.body).to.be.an('object');
+    });
+
+    it('Espera que o objeto contenha a key message', function () {
+      expect(response.body).to.have.a.property('message');
+    });
+
+    it('a mensagem contida no objeto está correta', function () {
+      expect(response.body.message).to.be.equal('insufficient funds');
+    });
+  });
 });
