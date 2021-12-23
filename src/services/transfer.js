@@ -1,6 +1,6 @@
 const { ObjectId } = require('bson');
 const transferModel = require('../models/depositAndTransfer');
-const { insufficientFunds, sameAccount } = require('../utils/errMessages');
+const { insufficientFunds, sameAccount, accountDoesNotExist } = require('../utils/errMessages');
 const getByCpf = require('../models/getAccountByCPF');
 
 const checkBalance = (myAmount, amountTo) => {
@@ -9,9 +9,12 @@ const checkBalance = (myAmount, amountTo) => {
 
 module.exports = async (myId, mybalance, cpfTo, quantityToTransfer) => {
   checkBalance(mybalance, quantityToTransfer);
-  const { _id: idRecipient, amount: balanceRecipient } = await getByCpf(cpfTo);
+  const recipientData = await getByCpf(cpfTo);
+  if (!recipientData) throw accountDoesNotExist;
 
-  if (myId === idRecipient) throw sameAccount;
+  const { _id: idRecipient, amount: balanceRecipient } = recipientData;
+
+  if (myId.toString() === idRecipient.toString()) throw sameAccount;
 
   const myAccountNewBalance = mybalance - quantityToTransfer;
   const recipientNewBalance = balanceRecipient + quantityToTransfer;
