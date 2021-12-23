@@ -6,12 +6,12 @@ Projeto de **backend** criado com um **API REST** com algumas **funções essenc
 
 #REQUISITOS
 
-- bash(Unix);
-- nodeJs versão 13 ou superior;
-- mongodb;
+- Bash(Unix);
+- NodeJs versão 13 ou superior;
+- Mongodb;
 
 #INSTRUÇÕES
 
-- Clone o repositório e a raiz execute o comando **npm install && npm start**;
-- Rotas GET, POST E PATCH encontradas no arquivo src/app.js;
+- Clone o repositório e na raiz do mesmo execute o comando **npm install && npm start**;
+- Rotas GET, POST E PATCH estão encontradas no arquivo src/app.js;
 
