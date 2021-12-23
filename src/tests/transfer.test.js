@@ -14,7 +14,6 @@ const { expect } = chai;
 describe('PATCH /transfer', function () {
   let connectionMock;
   let responseBill;
-  let responseMark;
 
   before(async function () {
     connectionMock = await getConnection();
@@ -23,13 +22,13 @@ describe('PATCH /transfer', function () {
     
     responseBill = await chai.request(app)
       .post('/createAccount')
-      .send({ cpf: 14645594818, firstName: 'Bill', lastName: 'Gates' });
+      .send({ cpf: 36212043000, firstName: 'Bill', lastName: 'Gates' });
 
     await chai.request(app)
       .patch('/deposit')
-      .send({ cpf: 14645594818, amount: 1800 });
+      .send({ cpf: 36212043000, amount: 1800 });
 
-    responseMark = await chai.request(app)
+    await chai.request(app)
       .post('/createAccount')
       .send({ cpf: 35548165070, firstName: 'Mark', lastName: 'Zuckeberg' });
   });
@@ -38,23 +37,33 @@ describe('PATCH /transfer', function () {
     MongoClient.connect.restore();
 
     await connectionMock.db('BankAccount').collection('accounts')
-      .deleteOne({ cpf: 14645594818 });
+      .deleteOne({ cpf: 36212043000 });
 
     await connectionMock.db('BankAccount').collection('accounts')
       .deleteOne({ cpf: 35548165070 });
   });
 
   describe('Verifica se é possivel fazer uma transferencia com sucesso', function () {
-    before(async function {
-      const { token } = responseBill;
+    before(async function () {
+      const { body: { token } } = responseBill;
       await chai.request(app)
         .patch('/transfer')
         .set({ Authorization: token })
         .send({ cpfTo: 35548165070, quantityToTransfer: 300 });
     });
 
-    it('Transfere R$300 de Bill para Mark', async function () {
-      expect(response.body).to.be.an('object');
+    it('Verifica se foi decrementado R$300 na conta de Bill', async function () {
+      const { body: { amount } } = await chai.request(app)
+        .get('/36212043000');
+
+      expect(amount).to.be.equal(1500);
+    });
+
+    it('Verifica se foi aumentado em R$300 na conta de Mark', async function () {
+      const { body: { amount } } = await chai.request(app)
+        .get('/35548165070');
+
+      expect(amount).to.be.equal(300);
     });
   });
 });

@@ -13,7 +13,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get('/getAll', controller.getAllAccounts);
+app.get('/', controller.getAllAccounts);
+app.get('/:cpf', rescue(controller.getDataByCpf));
 app.post('/createAccount', checkAccountFields, rescue(controller.createAccount));
 app.patch('/transfer', auth, checkBalanceFields, rescue(controller.transfer));
 app.patch('/deposit', checkDepositFields, rescue(controller.deposit));

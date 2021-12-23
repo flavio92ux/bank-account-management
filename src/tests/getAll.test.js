@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('GET /getall', function () {
+describe('GET /', function () {
   describe('Verifica se retorna um array de objetos com as propriedades corretas', function () {
     let connectionMock;
     let response;
@@ -25,7 +25,7 @@ describe('GET /getall', function () {
         .insertOne({ cpf: 14645594818, firstName: 'William', middleName: 'H.', lastName: 'Gates' });
 
       response = await chai.request(app)
-        .get('/getAll');
+        .get('/');
     });
 
     after(async function () {
