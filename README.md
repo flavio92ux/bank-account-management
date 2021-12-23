@@ -10,6 +10,8 @@ REQUISITOS
 
 INSTRUÇÕES
 
-- Clone o repositório e na raiz do mesmo execute o comando **npm install && npm start**;
+- Clone o repositório e na raiz do mesmo execute o comando **npm install** para instalar as dependências;
+- Para executar o projeto de o comando **npm start**;
+- Para executar os testes de o comando **npm test**;
 - Rotas GET, POST E PATCH estão encontradas no arquivo src/api/app.js;
 
