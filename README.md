@@ -6,7 +6,7 @@ Projeto de **backend** criado com um **API REST** com algumas **funções essenc
 
 #REQUISITOS
 
-- Bash(Unix);
+- Bash (Unix);
 - NodeJs versão 13 ou superior;
 - Mongodb;
 
