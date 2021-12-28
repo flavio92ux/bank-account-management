@@ -8,10 +8,11 @@ REQUISITOS
 - NodeJs versão 13 ou superior;
 - Mongodb;
 
-INSTRUÇÕES
+PASSO A PASSO PARA EXECUÇÃO DO PROJETO
 
-- Clone o repositório e na raiz do mesmo execute o comando **npm install** para instalar as dependências;
-- Para executar o projeto de o comando **npm start**;
-- Para executar os testes de o comando **npm test**;
+- Clone o repositório e entre no diretorio raiz
+- execute **npm install** no terminal para instalar as dependências;
+- execute **npm start** para inicializar o projeto;
+- execute **npm test** para rodar os testes automatizados;
 - Rotas GET, POST E PATCH estão encontradas no arquivo src/api/app.js;
 
