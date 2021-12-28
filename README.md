@@ -22,6 +22,7 @@ Esse projeto segue a metodologias de camadas MSC (model, service e controller).
    - A camada de model contem os arquivos responsáveis para fazer a conexão com o banco de dados, que no nosso caso é o mongoDB.
    - A camada service é a responsável de tratar as regras de negócio da aplicação, como por exemplo verificar se um ID existe no banco de dados. Normalmente essas regras de negócio estão vinculadas ao banco de dados.
    - A camada de controller filtra a entrada e saida de dados da nossa aplicação, sendo esses dados recebidos enviados ao service, que por sua ve envia ao model.
+   - Os middlewares definem a regra de negócio das condiçoes dos parametros que serão enviados para o controller, como checagem de CPF válido, Valor minimo e maximo para depósito, etc.
 
 ROTAS DO PROJETO
 
