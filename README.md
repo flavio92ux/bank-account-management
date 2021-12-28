@@ -32,5 +32,5 @@ ROTAS DO PROJETO
 - Rota tipo PATCH de endereço http://localhost:3001/deposit que recebe no body os parametros { cpf, amount } é responsável para depositar um valor monetario em uma conta especifica, que no caso é o cpf de destino (parametro recebido no body).
 - Rota do tipo PATCH de endereço http://localhost:3001/transfer que recebe no body como parametros { cpfTo, quantityToTransfer } e no header { Authorization: token } transfere valor monetário de uma conta para outra, sendo a conta de origem a conta do token e a conta destino o cpf informado no body.
 
-**Os detalhes das condições dos parâmetros estão deralhados no histórico de testes da aplicação**
+**Os detalhes das condições dos parâmetros estão detalhados nos testes da aplicação**
     
