@@ -26,11 +26,11 @@ Esse projeto segue a metodologias de camadas MSC (model, service e controller).
 ROTAS DO PROJETO
 
 
-    - Rota tipo GET de endereço http://localhost:3001/ que retorna todos os usuários cadastrados no banco de dados
-    - Rota tipo GET de endereço http://localhost:3001/:id que retorna dados do usuário <:id> no banco de dados
-    - Rota tipo POST de endereço http://localhost:3001/createAccount que recebe no body os parametros { cpf, firstName, lastName, middleName }. Essa rota retorn o token de acesso do usuário.
-    - Rota tipo PATCH de endereço http://localhost:3001/deposit que recebe no body os parametros { cpf, amount } que serve para depositar um valor monetario em uma conta especifica, pelo cpf da conta.
-    - Rota do tipo PATCH de endereço http://localhost:3001/transfer que recebe no body como parametros { cpfTo, quantityToTransfer } e o header o token do usuario da conta de origem.
+- Rota tipo GET de endereço http://localhost:3001/ que retorna todos os usuários cadastrados no banco de dados
+- Rota tipo GET de endereço http://localhost:3001/:id que retorna dados do usuário <:id> no banco de dados
+- Rota tipo POST de endereço http://localhost:3001/createAccount que recebe no body os parametros { cpf, firstName, lastName, middleName }. Essa rota retorn o token de acesso do usuário.
+- Rota tipo PATCH de endereço http://localhost:3001/deposit que recebe no body os parametros { cpf, amount } que serve para depositar um valor monetario em uma conta especifica, pelo cpf da conta.
+- Rota do tipo PATCH de endereço http://localhost:3001/transfer que recebe no body como parametros { cpfTo, quantityToTransfer } e o header o token do usuario da conta de origem.
 
-    **Os detalhes das condições dos parâmetros estão deralhados no histórico de testes da aplicação**
+**Os detalhes das condições dos parâmetros estão deralhados no histórico de testes da aplicação**
     
