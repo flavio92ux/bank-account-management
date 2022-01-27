@@ -1,6 +1,9 @@
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const MONGODB_URL = 'mongodb://localhost:27017';
+const MONGODB_HOST = process.env.MONGODB_HOST || 'db';
+
+const MONGODB_URL = `mongodb://${MONGODB_HOST}:27017`;
 const DB_NAME = 'BankAccount';
 
 const getConnection = () => MongoClient

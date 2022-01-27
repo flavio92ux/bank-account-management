@@ -8,13 +8,19 @@ REQUISITOS
 - NodeJs versão 13 ou superior;
 - Mongodb;
 
-PASSO A PASSO PARA EXECUÇÃO DO PROJETO
+INSTALAÇÃO NA MÁQUINA FÍSICA:
 
 - Clone o repositório e entre no diretorio raiz
 - execute **npm install** no terminal para instalar as dependências;
 - execute **npm start** para inicializar o projeto;
 - execute **npm test** para rodar os testes automatizados;
 - Rotas GET, POST E PATCH estão encontradas no arquivo src/api/app.js;
+
+**INSTALAÇÃO COM DOCKER COMPOSER (RECOMENDADO!)**
+
+```bash
+$ sudo docker-compose up -d
+```
 
 CAMADAS DO PROJETO
 
